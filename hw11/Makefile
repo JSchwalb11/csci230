@@ -1,0 +1,31 @@
+c = gcc
+CFLAGS = -Wall
+LDFLAGS =
+OBJFILES = hw11-A-josephschwalb.o hw11-B-josephschwalb.o hw11-C-josephschwalb.o read_file.o
+TARGET = hw11-josephschwalb
+
+all: hw11-josephschwalb
+
+hw11-josephschwalb: hw11-josephschwalb.o hw11-lib-josephschwalb.so
+	    $(c) -lm -o hw11-josephschwalb hw11-josephschwalb.o -L. -ldl
+
+hw11-josephschwalb.o: hw11-josephschwalb.c
+	    $(c) -O -c -fPIC hw11-josephschwalb.c hw11-josephschwalb.h
+
+hw11-A-josephschwalb.o: hw11-A-josephschwalb.c hw11-A-josephschwalb.h
+	    $(c) -O -c -fPIC hw11-A-josephschwalb.c
+
+hw11-B-josephschwalb.o: hw11-B-josephschwalb.c hw11-B-josephschwalb.h
+	    $(c) -O -c -fPIC hw11-B-josephschwalb.c
+
+hw11-C-josephschwalb.o: hw11-C-josephschwalb.c hw11-C-josephschwalb.h
+	    $(c) -O -c -fPIC hw11-C-josephschwalb.c
+
+read_file.o: read_file.c read_file.h
+	    $(c) -O -c -fPIC read_file.c
+
+hw11-lib-josephschwalb.so: hw11-A-josephschwalb.o hw11-B-josephschwalb.o hw11-C-josephschwalb.o read_file.o
+			$(c) -fPIC -shared hw11-A-josephschwalb.o hw11-B-josephschwalb.o hw11-C-josephschwalb.o read_file.o -o hw11-lib-josephschwalb.so
+
+clean:
+	    rm -f hw11-josephschwalb *.o *.so *.gch

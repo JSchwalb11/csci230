@@ -1,0 +1,13 @@
+c = gcc
+CFLAGS = -Wall
+LDFLAGS =
+OBJFILES = array.o read_file.o
+TARGET = hw10-josephschwalb
+
+all: $(TARGET)
+
+$(TARGET): $(OBJFILES)
+	    $(c) hw10-josephschwalb.c -o $(TARGET) $(OBJFILES)
+
+clean:
+	    rm -f $(TARGET) $(OBJFILES)
